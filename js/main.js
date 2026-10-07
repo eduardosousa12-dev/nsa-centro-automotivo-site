@@ -13,7 +13,8 @@
 
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Animações ligadas em todos os aparelhos, mesmo com "reduzir movimento" ativado no sistema.
+  const reduceMotion = false;
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const isDesktop = () => window.innerWidth >= 1024;
 
@@ -90,6 +91,13 @@
     if (document.readyState === 'complete') startVideo();
     else window.addEventListener('load', startVideo, { once: true });
 
+    // iPhone em modo economia de bateria bloqueia autoplay: tenta de novo no primeiro toque/rolagem
+    const retry = () => {
+      if (heroVideo.paused) { heroVideo.muted = true; heroVideo.play().catch(() => {}); }
+      ['touchstart', 'scroll', 'click'].forEach((ev) => window.removeEventListener(ev, retry));
+    };
+    ['touchstart', 'scroll', 'click'].forEach((ev) => window.addEventListener(ev, retry, { passive: true }));
+
     // pausa quando sai da tela (economiza bateria no celular)
     new IntersectionObserver(([e]) => {
       if (reduceMotion || heroVideo.readyState === 0) return;
@@ -123,7 +131,6 @@
     }
     parallax();
     hscroll();
-    timeline();
     ticking = false;
   };
   window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(onScroll); ticking = true; } }, { passive: true });
@@ -195,31 +202,9 @@
     revealEls.forEach((el) => io.observe(el));
   }
 
-  /* ===== 7. Contadores animados ===== */
-  const counters = $$('[data-count]');
-  const animateCount = (el) => {
-    const target = parseFloat(el.dataset.count);
-    const dec = parseInt(el.dataset.decimals || '0', 10);
-    const dur = 1600; const t0 = performance.now();
-    const ease = (t) => 1 - Math.pow(1 - t, 4);
-    const step = (t) => {
-      const p = Math.min((t - t0) / dur, 1);
-      el.textContent = (target * ease(p)).toFixed(dec).replace('.', ',');
-      if (p < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  };
-  if (!reduceMotion) {
-    const cio = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) { animateCount(e.target); cio.unobserve(e.target); } });
-    }, { threshold: 0.3 });
-    counters.forEach((c) => { c.textContent = '0'; cio.observe(c); });
-  }
-
   /* ===== 8. Parallax / escala ligados ao scroll (desktop) ===== */
   const heroMedia = $('[data-parallax]');
   const scaleEl = $('[data-scale]');
-  const aboutImg = $('[data-parallax-img] img');
   function parallax() {
     if (reduceMotion || !isDesktop()) return;
     const vh = window.innerHeight;
@@ -233,26 +218,6 @@
         scaleEl.style.transform = `scale(${1.18 - p * 0.18})`;
       }
     }
-    if (aboutImg) {
-      const r = aboutImg.parentElement.getBoundingClientRect();
-      if (r.bottom > 0 && r.top < vh) {
-        const p = (r.top + r.height / 2 - vh / 2) / vh;
-        aboutImg.style.transform = `translate3d(0, ${p * -60 - 30}px, 0)`;
-      }
-    }
-  }
-
-  /* ===== 9. Linha da timeline que "se desenha" ===== */
-  const tl = $('[data-timeline]');
-  const tlLine = tl && $('.timeline__line span', tl);
-  const steps = tl ? $$('.step', tl) : [];
-  function timeline() {
-    if (!tl) return;
-    const r = tl.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const p = Math.min(Math.max((vh * 0.75 - r.top) / (r.height + vh * 0.2), 0), 1);
-    tlLine.style.setProperty('--p', reduceMotion ? 1 : p.toFixed(3));
-    steps.forEach((s, i) => s.classList.toggle('is-lit', reduceMotion || p >= (i + 0.2) / steps.length));
   }
 
   /* ===== 10. Galeria horizontal com scroll travado (desktop) ===== */
