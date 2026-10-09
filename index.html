@@ -92,7 +92,7 @@
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Troca de óleo do motor", "description": "Óleo e filtro trocados com as marcas Motul, Mobil, Texaco e Lubrax." } },
             { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Pneu novo aro 13", "description": "Pneu novo montado na loja, 5 anos de garantia, na base de troca." }, "price": "249.90", "priceCurrency": "BRL" },
             { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Pneu novo aro 14, 15 e 16", "description": "Pneu novo montado na loja, 5 anos de garantia, na base de troca." }, "price": "299.90", "priceCurrency": "BRL" },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Alinhamento e balanceamento" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Alinhamento 3D e balanceamento" } },
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Suspensão" } },
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Freios" } },
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bateria" } }
@@ -120,7 +120,8 @@
           { "@type": "Question", "name": "Vocês trocam o óleo do câmbio do meu carro?", "acceptedAnswer": { "@type": "Answer", "text": "Manda o modelo e o ano no WhatsApp. A gente confirma se atende o seu câmbio e qual o óleo certo para ele." } },
           { "@type": "Question", "name": "Preciso marcar horário?", "acceptedAnswer": { "@type": "Answer", "text": "Para o câmbio automático, é melhor chamar antes no WhatsApp e garantir o horário. Para óleo do motor e pneu, chamando antes você já chega sabendo o valor." } },
           { "@type": "Question", "name": "O que quer dizer “na base de troca”?", "acceptedAnswer": { "@type": "Answer", "text": "Quer dizer que o preço do pneu vale quando você deixa o pneu velho aqui na loja na hora da troca." } },
-          { "@type": "Question", "name": "Posso comprar só o óleo para levar?", "acceptedAnswer": { "@type": "Answer", "text": "Pode. Aqui também é distribuidora de óleo. Chama no WhatsApp, diz qual óleo você procura e a gente verifica no estoque." } }
+          { "@type": "Question", "name": "Posso comprar só o óleo para levar?", "acceptedAnswer": { "@type": "Answer", "text": "Pode. Aqui também é distribuidora de óleo. Chama no WhatsApp, diz qual óleo você procura e a gente verifica no estoque." } },
+          { "@type": "Question", "name": "Dá para parcelar?", "acceptedAnswer": { "@type": "Answer", "text": "Dá, em até 10x sem juros no cartão. Os preços promocionais dos pneus valem para pagamento em dinheiro ou Pix." } }
         ]
       }
     ]
@@ -317,7 +318,8 @@
         <img src="assets/img/peca-cambio-automatico-revisao.webp" width="1304" height="690" loading="lazy" decoding="async"
              alt="Engrenagem interna de um câmbio automático vista de perto">
       </div>
-      <div class="container solution__inner">
+      <div class="container solution__grid">
+      <div class="solution__inner">
         <p class="eyebrow reveal">Como a gente faz</p>
         <h2 class="h2 reveal" id="solucao-title">Aqui a troca do óleo do câmbio é feita <em>na máquina.</em></h2>
         <p class="lead reveal">
@@ -331,6 +333,22 @@
         <a class="btn btn--gold btn--lg magnetic reveal" data-wa="cambio" href="https://wa.me/5534991346706" target="_blank" rel="noopener">
           <svg class="ico"><use href="#i-wa"/></svg><span>Quero saber o valor para o meu carro</span>
         </a>
+      </div>
+
+      <figure class="solution__video reveal">
+        <div class="player" data-player>
+          <video class="player__video" preload="none" playsinline controls
+                 poster="assets/img/poster-cambio-automatico-explicado.webp" width="848" height="480"
+                 aria-label="Vídeo: o câmbio automático explicado na oficina NSA">
+            <source src="assets/video/cambio-automatico-explicado-nsa.mp4" type="video/mp4">
+          </video>
+          <button class="player__btn magnetic" type="button" aria-label="Assistir: câmbio automático explicado" data-play>
+            <svg><use href="#i-play"/></svg>
+          </button>
+          <span class="player__time" aria-hidden="true">1:17</span>
+        </div>
+        <figcaption><svg class="ico"><use href="#i-play"/></svg>Assista: o câmbio automático aberto e explicado na nossa oficina.</figcaption>
+      </figure>
       </div>
     </section>
 
@@ -369,13 +387,13 @@
           <article class="card card--gold reveal" data-tilt>
             <svg class="card__ico"><use href="#i-tire"/></svg>
             <h3>Pneus novos</h3>
-            <p>Montados na loja, com 5 anos de garantia. A partir de R$ 249,90.</p>
+            <p>Nacionais e importados, montados na loja, com 5 anos de garantia. A partir de R$ 249,90.</p>
             <a class="card__link" href="#pneus">Ver preços <svg class="ico"><use href="#i-arrow"/></svg></a>
           </article>
 
           <article class="card reveal" data-tilt>
             <svg class="card__ico"><use href="#i-align"/></svg>
-            <h3>Alinhamento e balanceamento</h3>
+            <h3>Alinhamento 3D e balanceamento</h3>
             <p>Carro reto na pista, volante firme e pneu gastando por igual.</p>
           </article>
 
@@ -488,17 +506,19 @@
       <div class="container">
         <div class="section-head section-head--center">
           <p class="eyebrow reveal">Assista</p>
-          <h2 class="h2 reveal" id="video-title">Veja por dentro <span class="muted">em 11 segundos.</span></h2>
+          <h2 class="h2 reveal" id="video-title">Conheça a NSA <span class="muted">em 40 segundos.</span></h2>
+          <p class="lead video__lead reveal">Câmbio automático, pneus nacionais e importados, alinhamento 3D e freios. Tudo no mesmo lugar.</p>
         </div>
         <div class="player reveal" data-player>
           <video class="player__video" preload="none" playsinline controls
-                 poster="assets/img/galpao-oficina-elevadores-uberlandia.webp" width="848" height="480"
-                 aria-label="Vídeo da oficina NSA Centro Automotivo com som">
-            <source src="assets/video/nsa-centro-automotivo-video.mp4" type="video/mp4">
+                 poster="assets/img/poster-conheca-a-nsa.webp" width="848" height="480"
+                 aria-label="Vídeo de apresentação da NSA Centro Automotivo">
+            <source src="assets/video/conheca-a-nsa-centro-automotivo.mp4" type="video/mp4">
           </video>
-          <button class="player__btn magnetic" type="button" aria-label="Tocar vídeo com som" data-play>
+          <button class="player__btn magnetic" type="button" aria-label="Assistir apresentação da NSA" data-play>
             <svg><use href="#i-play"/></svg>
           </button>
+          <span class="player__time" aria-hidden="true">0:41</span>
         </div>
       </div>
     </section>
@@ -564,6 +584,10 @@
           <div class="acc reveal">
             <h3><button type="button" aria-expanded="false" aria-controls="faq-5" id="faq-5-btn">Posso comprar só o óleo para levar?<svg><use href="#i-plus"/></svg></button></h3>
             <div class="acc__panel" id="faq-5" role="region" aria-labelledby="faq-5-btn" hidden><p>Pode. Aqui também é distribuidora de óleo. Chama no WhatsApp, diz qual óleo você procura e a gente verifica no estoque.</p></div>
+          </div>
+          <div class="acc reveal">
+            <h3><button type="button" aria-expanded="false" aria-controls="faq-6" id="faq-6-btn">Dá para parcelar?<svg><use href="#i-plus"/></svg></button></h3>
+            <div class="acc__panel" id="faq-6" role="region" aria-labelledby="faq-6-btn" hidden><p>Dá, em até 10x sem juros no cartão. Os preços promocionais dos pneus valem para pagamento em dinheiro ou Pix.</p></div>
           </div>
         </div>
       </div>

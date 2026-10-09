@@ -250,15 +250,21 @@
   setupHscroll();
 
   /* ===== 11. Player do vídeo com som ===== */
-  const player = $('[data-player]');
-  if (player) {
+  const players = $$('[data-player]');
+  players.forEach((player) => {
     const v = $('video', player);
     const btn = $('[data-play]', player);
     btn.addEventListener('click', () => { v.muted = false; v.play().catch(() => {}); });
-    v.addEventListener('play', () => player.classList.add('is-playing'));
+    v.addEventListener('play', () => {
+      player.classList.add('is-playing');
+      // só um vídeo com som por vez
+      players.forEach((o) => { const ov = $('video', o); if (ov !== v && !ov.paused) ov.pause(); });
+    });
     v.addEventListener('pause', () => player.classList.remove('is-playing'));
     v.addEventListener('ended', () => player.classList.remove('is-playing'));
-  }
+    // pausa ao sair da tela
+    new IntersectionObserver(([e]) => { if (!e.isIntersecting && !v.paused) v.pause(); }, { threshold: 0.2 }).observe(player);
+  });
 
   /* ===== 12. Accordion (FAQ) ===== */
   $$('[data-accordion] button[aria-controls]').forEach((btn) => {
